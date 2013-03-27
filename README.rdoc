@@ -6,8 +6,10 @@ For Redmine versions prior to 2.x, check out the pre-2.x branch.
 
 = Installation
 
+The usual {installation instructions}[http://www.redmine.org/projects/redmine/wiki/Plugins]
+for Redmine plugins apply. The (very brief) summary:
 Download or git clone to the plugins directory, run `rake
-db:migrate:plugins` to create database tables.
+redmine:plugins:migrate` to create database tables.
 
 Enable the 'Canned Responses' module for projects you need this
 feature in.
