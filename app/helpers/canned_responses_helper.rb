@@ -1,6 +1,6 @@
 module CannedResponsesHelper
   def authorize_for(controller, action)
-    User.current.allowed_to?({:controller => controller, :action => action}, @project)
+    User.current.allowed_to?({:controller => controller, :action => action}, @project, :global => true)
   end
 
   def link_to_if_authorized(name, options = {}, html_options = nil, *parameters_for_method_reference)
