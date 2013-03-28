@@ -1,4 +1,12 @@
 module CannedResponsesHelper
+  def authorize_for(controller, action)
+    User.current.allowed_to?({:controller => controller, :action => action}, @project)
+  end
+
+  def link_to_if_authorized(name, options = {}, html_options = nil, *parameters_for_method_reference)
+    link_to(name, options, html_options, *parameters_for_method_reference) if authorize_for(options[:controller] || params[:controller], options[:action])
+  end
+
   def edit_canned_response_link(canned_response, title = l(:button_edit))
     link_to_if_authorized(title,
                           { :controller => "canned_responses", :action => "edit",
