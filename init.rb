@@ -2,11 +2,11 @@ require 'redmine'
 
 Redmine::Plugin.register :redmine_canned_responses do
   name 'Redmine Canned Responses plugin'
-  author 'Alex Shulgin <ash@commandprompt.com>'
+  author 'Alex Shulgin'
   description 'Store and use prepared (canned) responses, per-project or globally.'
   version '0.2.0'
   url 'http://github.com/commandprompt/redmine_canned_responses'
-#  author_url 'http://example.com/about'
+  author_url 'mailto:ash@commandprompt.com'
 
   project_module :canned_responses do
     permission :manage_canned_responses,
