@@ -1,8 +1,11 @@
 module CannedResponsesHelper
+  # HACK: Override authorize_for to enable admins to manage canned responses.
   def authorize_for(controller, action)
     User.current.allowed_to?({:controller => controller, :action => action}, @project, :global => true)
   end
 
+  # HACK: Override link_to_if_authorized so that we can use a custom
+  # authorize_for which enables admins to manage canned responses.
   def link_to_if_authorized(name, options = {}, html_options = nil, *parameters_for_method_reference)
     link_to(name, options, html_options, *parameters_for_method_reference) if authorize_for(options[:controller] || params[:controller], options[:action])
   end
