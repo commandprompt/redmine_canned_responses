@@ -1,6 +1,6 @@
 <p>
 <% options = canned_response_options_for_select %>
-  <% if options.present? and User.current.allowed_to?(:use_canned_responses, @project) %>
+  <% if options.present? and User.current.allowed_to?(:use_canned_responses, @project, :global => true) %>
     <%= label_tag :canned_response, l(:label_insert_canned_response) %>
     <% url = url_for(:controller => 'canned_responses', :action => 'insert',
                      :project_id => nil, :id => ':id') %>
@@ -17,7 +17,7 @@ EOF
         :onchange => js %>
 <% end %>
 
-<% if User.current.allowed_to? :manage_canned_responses, @project %>
+<% if User.current.allowed_to? :manage_canned_responses, @project, :global => true %>
   <br/>
   <%= link_to l(:label_manage_canned_responses),
       url_to_canned_responses_settings_tab %>
