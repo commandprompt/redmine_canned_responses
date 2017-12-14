@@ -2,7 +2,7 @@ Redmine::Plugin.register :redmine_canned_responses do
   name 'Redmine Canned Responses plugin'
   author 'Alex Shulgin <ash@commandprompt.com>'
   description 'Store and use prepared (canned) responses, per-project or globally.'
-  version '0.3.0'
+  version '0.3.1'
   requires_redmine '3.0.0'
   url 'http://github.com/commandprompt/redmine_canned_responses'
 #  author_url 'http://example.com/about'
@@ -17,7 +17,7 @@ Redmine::Plugin.register :redmine_canned_responses do
   menu :admin_menu, :canned_responses,
     { :controller => 'canned_responses', :action => 'index' },
     :caption => :label_canned_response_plural,
-    :html => { :class => 'canned_responses' }
+    :html => { :class => 'icon icon-issue-note' }
 end
 
 require_dependency 'redmine_canned_responses/view_hooks'
