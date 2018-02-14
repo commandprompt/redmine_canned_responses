@@ -20,14 +20,14 @@ module CannedResponsesHelper
                 :id => canned_response },
               :class => "icon icon-del",
               :method => :delete,
-              :confirm => l(:text_are_you_sure)).to_s.html_safe
+              data: {confirm: l(:text_are_you_sure)}).to_s.html_safe
     else
       link_to_if_authorized(title,
                             { :controller => "canned_responses", :action => "destroy",
                               :id => canned_response },
                             :class => "icon icon-del",
                             :method => :delete,
-                            :confirm => l(:text_are_you_sure)).to_s.html_safe
+                            data: {confirm: l(:text_are_you_sure)}).to_s.html_safe
     end
   end
 
