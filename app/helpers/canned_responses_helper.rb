@@ -1,18 +1,34 @@
 module CannedResponsesHelper
   def edit_canned_response_link(canned_response, title = l(:button_edit))
-    link_to_if_authorized(title,
-                          { :controller => "canned_responses", :action => "edit",
-                            :id => canned_response },
-                          :class => "icon icon-edit").to_s.html_safe
+    if canned_response.global? and User.current.allowed_to_globally?({ :controller => "canned_responses", :action => "edit" })
+      link_to(title,
+              { :controller => "canned_responses", :action => "edit",
+                :id => canned_response },
+              :class => "icon icon-edit").to_s.html_safe
+    else
+      link_to_if_authorized(title,
+                            { :controller => "canned_responses", :action => "edit",
+                              :id => canned_response },
+                            :class => "icon icon-edit").to_s.html_safe
+    end
   end
 
   def delete_canned_response_link(canned_response, title = l(:button_delete))
-    link_to_if_authorized(title,
-                          { :controller => "canned_responses", :action => "destroy",
-                            :id => canned_response },
-                          :class => "icon icon-del",
-                          :method => :delete,
-                          :confirm => l(:text_are_you_sure)).to_s.html_safe
+    if canned_response.global? and User.current.allowed_to_globally?({ :controller => "canned_responses", :action => "destroy" })
+      link_to(title,
+              { :controller => "canned_responses", :action => "destroy",
+                :id => canned_response },
+              :class => "icon icon-del",
+              :method => :delete,
+              :confirm => l(:text_are_you_sure)).to_s.html_safe
+    else
+      link_to_if_authorized(title,
+                            { :controller => "canned_responses", :action => "destroy",
+                              :id => canned_response },
+                            :class => "icon icon-del",
+                            :method => :delete,
+                            :confirm => l(:text_are_you_sure)).to_s.html_safe
+    end
   end
 
   def manage_canned_response_links(canned_response)
@@ -35,10 +51,19 @@ module CannedResponsesHelper
 
   def link_to_new_canned_response(title = l(:label_new_canned_response),
                                   project = @project)
-    link_to_if_authorized(title,
-                          { :controller => "canned_responses", :action => "new",
-                            :project_id => project },
-                          :class => "icon icon-add").to_s.html_safe
+    if project
+      link_to_if_authorized(title,
+                            { :controller => "canned_responses", :action => "new",
+                              :project_id => project },
+                            :class => "icon icon-add").to_s.html_safe
+
+    elsif User.current.allowed_to_globally?({ :controller => "canned_responses", :action => "new" })
+      link_to(title,
+              { :controller => "canned_responses", :action => "new",
+                :project_id => project },
+              :class => "icon icon-add").to_s.html_safe
+
+    end
   end
 
   def canned_response_options_for_select(project = @project)
