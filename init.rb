@@ -1,15 +1,15 @@
 Redmine::Plugin.register :redmine_canned_responses do
   name 'Redmine Canned Responses plugin'
-  author 'Alex Shulgin <ash@commandprompt.com>'
+  author 'Alex Shulgin <ash@commandprompt.com>, Eugene Dubinin <eugend@commandprompt.com>'
+  author_url 'https://www.commandprompt.com'
   description 'Store and use prepared (canned) responses, per-project or globally.'
-  version '0.3.1'
+  version '0.3.2'
   requires_redmine '3.0.0'
   url 'http://github.com/commandprompt/redmine_canned_responses'
-#  author_url 'http://example.com/about'
 
   project_module :canned_responses do
     permission :manage_canned_responses,
-      :canned_responses => [:index, :show, :preview, :new, :edit,
+      :canned_responses => [:index, :show, :new, :edit,
                             :create, :update, :destroy]
     permission :use_canned_responses, :canned_responses => [:insert]
   end
@@ -30,7 +30,7 @@ prepare_block = Proc.new do
 end
 
 if Rails.env.development?
-  ActionDispatch::Reloader.to_prepare { prepare_block.call }
+  ActiveSupport::Reloader.to_prepare { prepare_block.call }
 else
   prepare_block.call
 end

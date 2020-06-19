@@ -1,10 +1,10 @@
 class CannedResponsesController < ApplicationController
   unloadable
 
-  before_filter :find_project
+  before_action :find_project
 
-  before_filter :require_admin_if_global, :except => :insert
-  before_filter :authorize_unless_global, :only => :insert
+  before_action :require_admin_if_global, :except => :insert
+  before_action :authorize_unless_global, :only => :insert
 
   layout :select_layout
 
@@ -47,13 +47,8 @@ class CannedResponsesController < ApplicationController
                 { :action => :index })
   end
 
-  def preview
-    @text = cr_params[:text]
-    render :partial => 'common/preview'
-  end
-
   def insert
-    render :text => @canned_response.text
+    render :plain => @canned_response.text
   end
 
   private

@@ -1,6 +1,5 @@
 routedef = Proc.new do
   resources :canned_responses do
-    post :preview, :on => :collection
     get :insert, :on => :member
   end
 end

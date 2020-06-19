@@ -4,10 +4,11 @@ module RedmineCannedResponses
 
     def self.included(base)
       base.class_eval do
-        alias_method_chain :project_settings_tabs, :canned_responses
+        alias_method :project_settings_tabs_without_canned_responses, :project_settings_tabs
+        alias_method :project_settings_tabs, :project_settings_tabs_with_canned_responses
       end
     end
-    
+
     def project_settings_tabs_with_canned_responses
       project_settings_tabs_without_canned_responses.tap do |tabs|
         if User.current.allowed_to?(:manage_canned_responses, @project)
