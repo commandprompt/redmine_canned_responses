@@ -3,6 +3,7 @@
 Store and use prepared (canned) responses, per-project or globally.
 
 For Redmine versions prior to 2.x, check out the pre-2.x branch.
+Redmine v4 compatible version can be found in the 4.0 branch of this repository.
 
 = Installation
 
