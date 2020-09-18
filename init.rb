@@ -3,8 +3,8 @@ Redmine::Plugin.register :redmine_canned_responses do
   author 'Alex Shulgin <ash@commandprompt.com>, Eugene Dubinin <eugend@commandprompt.com>'
   author_url 'https://www.commandprompt.com'
   description 'Store and use prepared (canned) responses, per-project or globally.'
-  version '0.3.2'
-  requires_redmine '3.0.0'
+  version '0.3.3'
+  requires_redmine '4.0'
   url 'http://github.com/commandprompt/redmine_canned_responses'
 
   project_module :canned_responses do
@@ -30,7 +30,7 @@ prepare_block = Proc.new do
 end
 
 if Rails.env.development?
-  ActiveSupport::Reloader.to_prepare { prepare_block.call }
+  ((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare { prepare_block.call }
 else
   prepare_block.call
 end
