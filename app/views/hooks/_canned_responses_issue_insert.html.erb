@@ -5,8 +5,9 @@
     <% url = url_for(:controller => 'canned_responses', :action => 'insert',
                      :project_id => nil, :id => ':id') %>
     <% js = <<EOF
-if ($('#canned_response').attr('value'))
-  $.ajax({ url: '#{url}'.replace(':id', $('#canned_response').attr('value')), type: 'get',
+val = $(':selected', '#canned_response').attr('value');
+if (val)
+  $.ajax({ url: '#{url}'.replace(':id', val), type: 'get',
            success: function(data) {
              $('#issue_#{issue.new_record? ? 'description' : 'notes'}').html(data);
            }

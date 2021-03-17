@@ -3,7 +3,7 @@ class CannedResponsesController < ApplicationController
 
   before_filter :find_project
 
-  before_filter [:require_admin_if_global, :authorize], :except => :insert
+  before_filter :require_admin_if_global, :except => :insert
   before_filter :authorize_unless_global, :only => :insert
 
   layout :select_layout
@@ -23,7 +23,7 @@ class CannedResponsesController < ApplicationController
 
   def create
     @canned_response = @canned_responses.new
-    if @canned_response.update_attributes(params[:canned_response])
+    if @canned_response.update_attributes(cr_params)
       flash[:notice] = l(:notice_canned_response_created)
       redirect_to @canned_response
     else
@@ -32,7 +32,7 @@ class CannedResponsesController < ApplicationController
   end
 
   def update
-    if @canned_response.update_attributes(params[:canned_response])
+    if @canned_response.update_attributes(cr_params)
       flash[:notice] = l(:notice_canned_response_updated)
       redirect_to @canned_response
     else
@@ -48,7 +48,7 @@ class CannedResponsesController < ApplicationController
   end
 
   def preview
-    @text = params[:canned_response][:text]
+    @text = cr_params[:text]
     render :partial => 'common/preview'
   end
 
@@ -57,6 +57,10 @@ class CannedResponsesController < ApplicationController
   end
 
   private
+
+  def cr_params
+    params.require(:canned_response).permit(:title, :text)
+  end
 
   include CannedResponsesHelper
 
